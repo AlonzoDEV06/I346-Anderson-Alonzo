@@ -52,7 +52,7 @@ Attention:
 * Le bucket existe-t-il ?
 
 ```bash
-aws s3 ls --profile devopsteam99-i346 | grep "devopsteam*"
+aws s3 ls --profile devopsteam01-i346 | grep "devopsteam01"
 ```
 
 ```
@@ -91,23 +91,26 @@ make_bucket: devopsteam99-i346
 * [Vérifier l'état du bucket avant votre commande]()
 
 ```bash
-aws s3 ls s3://devopsteam01-i346/
+aws s3 ls s3://devopsteam99-i346 ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-An error occurred (AccessDenied) when calling the ListObjectsV2 operation: User: arn:aws:iam::709024702237:user/devopsteam01-i346 is not authorized to perform: s3:ListBucket on resource: "arn:aws:s3:::devopsteam01-i346" because no identity-based policy allows the s3:ListBucket action
+<empty>
+
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-aws s3 cp document.txt s3://devopsteam01-i346/
+aws s3 cp fileToUpload.txt s3://devopsteam99-i346/fileToUpload.txt ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-The user-provided path document.txt does not exist.
+upload: .\fileToUpload.txt to s3://devopsteam99-i346/fileToUpload.txt
 ```
 
 ### Uploader un répertoire
@@ -119,23 +122,27 @@ The user-provided path document.txt does not exist.
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-aws s3 ls | grep nom-du-bucket
+aws s3 ls s3://devopsteam99-i346 ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-2025-01-27 22:28:02 devopsteam01-i346
+2025-02-23 09:09:10          0 fileToUpload.txt
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-aws s3 cp /bureau/I346/repertoire s3://devopsteam01-i346/ --recursive
+aws s3 cp folderToUpload s3://devopsteam99-i346/folderToUpload ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-The user-provided path C:/Program Files/Git/bureau/I346/repertoire does not exist.
+upload: folderToUpload\bob.txt to s3://devopsteam99-i346/folderToUpload/bob.txt
+upload: folderToUpload\script.sql to s3://devopsteam99-i346/folderToUpload/script.sql
 ```
 
 ### Lister le contenu d'un "repertoire"
@@ -147,24 +154,31 @@ The user-provided path C:/Program Files/Git/bureau/I346/repertoire does not exis
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-aws s3 ls | grep nom-du-bucket
+aws s3 ls s3://devopsteam99-i346 ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-2025-01-27 22:28:02 devopsteam01-i346
+2025-02-23 09:09:10          0 fileToUpload.txt
+2025-02-23 09:10:21          0 folderToUpload/bob.txt
+2025-02-23 09:10:21          0 folderToUpload/script.sql
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-aws s3 ls s3://devopsteam01-i346/
+aws s3 ls s3://devopsteam99-i346 ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-An error occurred (AccessDenied) when calling the ListObjectsV2 operation: User: arn:aws:iam::709024702237:user/devopsteam01-i346 is not authorized to perform: s3:ListBucket on resource: "arn:aws:s3:::devopsteam01-i346" because no identity-based policy allows the s3:ListBucket action
-
+2025-02-23 09:09:10          0 fileToUpload.txt
+2025-02-23 09:10:21          0 folderToUpload/bob.txt
+2025-02-23 09:10:21          0 folderToUpload/script.sql
 ```
 
 ### Synchroniser un répertoire local de sa machine avec un bucket
@@ -176,24 +190,28 @@ An error occurred (AccessDenied) when calling the ListObjectsV2 operation: User:
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-aws s3 ls | grep nom-du-bucket
+aws s3 ls s3://devopsteam99-i346 ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-2025-01-27 22:28:02 devopsteam01-i346
+2025-02-23 09:09:10          0 fileToUpload.txt
+2025-02-23 09:10:21          0 folderToUpload/bob.txt
+2025-02-23 09:10:21          0 folderToUpload/script.sql
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-aws s3 sync /chemin/vers/repertoire-local s3://devopsteam01-i346/
-
+aws s3 sync . s3://devopsteam99-i346/ ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+upload: .\Airplane-Transponder.jpg to s3://devopsteam99-i346/Airplane-Transponder.jpg
 ```
 
 ### Publier un fichier présent sur un bucket en générant un lien (url) temporaire
@@ -205,23 +223,37 @@ aws s3 sync /chemin/vers/repertoire-local s3://devopsteam01-i346/
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-aws s3 ls | grep nom-du-bucket
+aws s3api head-object ^
+--bucket devopsteam99-i346 ^
+--key Airplane-Transponder.jpg ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-2025-01-27 22:28:02 devopsteam01-i346
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2025-02-23T08:12:59+00:00",
+    "ContentLength": 17010,
+    "ETag": "\"d0194f28e675232be0018b34d760fb92\"",
+    "ContentType": "image/jpeg",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-aws s3 presign s3://devopsteam01-i346/rapport.pdf --expires-in 7200
+aws s3 presign s3://devopsteam99-i346/Airplane-Transponder.jpg ^
+--expires-in 60 ^
+--region eu-central-1 ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+https://devopsteam99-i346.s3.eu-central-1.amazonaws.com/Airplane-Transponder.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2KFJKL4O6EAOCHBR%2F20250223%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20250223T081917Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&X-Amz-Signature=674d4a08094ad410c871d26aeb8a9166d267d798c6c633fb2b07ba7ee734e068
 ```
 
 ### Supprimer un fichier
@@ -233,23 +265,35 @@ aws s3 presign s3://devopsteam01-i346/rapport.pdf --expires-in 7200
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-//TODO
+aws s3api head-object ^
+--bucket devopsteam99-i346 ^
+--key fileToUpload.txt ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2025-02-23T17:00:50+00:00",
+    "ContentLength": 0,
+    "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+    "ContentType": "text/plain",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-//TODO
+aws s3 rm s3://devopsteam99-i346/fileToUpload.txt ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+delete: s3://devopsteam99-i346/fileToUpload.txt
 ```
 
 ### Vider un "repertoire"
@@ -261,23 +305,29 @@ aws s3 presign s3://devopsteam01-i346/rapport.pdf --expires-in 7200
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-//TODO
+aws s3 ls s3://devopsteam99-i346/folderToUpload ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+2025-02-23 09:10:21          0 folderToUpload/bob.txt
+2025-02-23 09:10:21          0 folderToUpload/script.sql
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-//TODO
+aws s3 rm s3://devopsteam99-i346/folderToUpload ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+delete: s3://devopsteam99-i346/folderToUpload/script.sql
+delete: s3://devopsteam99-i346/folderToUpload/bob.txt
 ```
 
 ### Extraire uniquement les metadonnées d'un objet
@@ -289,23 +339,42 @@ aws s3 presign s3://devopsteam01-i346/rapport.pdf --expires-in 7200
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-//TODO
+aws s3api head-object ^
+--bucket devopsteam99-i346 ^
+--key Airplane-Transponder.jpg ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2025-02-23T08:32:02+00:00",
+    "ContentLength": 17010,
+    "ETag": "\"d0194f28e675232be0018b34d760fb92\"",
+    "ContentType": "image/jpeg",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-//TODO
+aws s3api get-object-attributes ^
+--bucket devopsteam99-i346 ^
+--key Airplane-Transponder.jpg ^
+--object-attributes ObjectSize ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+{
+{
+    "LastModified": "2025-02-23T08:32:02+00:00",
+    "ObjectSize": 17010
+}
 ```
 
 ### Vider le bucket
@@ -317,23 +386,33 @@ aws s3 presign s3://devopsteam01-i346/rapport.pdf --expires-in 7200
 * [Vérifier l'état du bucket avant votre commande]
 
 ```bash
-//TODO
+aws s3 ls s3://devopsteam99-i346/ ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+2025-02-23 09:32:02      17010 Airplane-Transponder.jpg
+2025-02-23 09:09:10          0 fileToUpload.txt
+2025-02-23 09:32:01          0 folderToUpload/bob.txt
+2025-02-23 09:32:02          0 folderToUpload/script.sql
 ```
 
 * [La commande à réaliser pour effecuter l'action demandée]
 
 ```bash
-//TODO
+aws s3 rm s3://devopsteam99-i346/ ^
+--recursive ^
+--profile devopsteam99-i346
 ```
 
 ```
 [OUTPUT]
-//TODO
+delete: s3://devopsteam99-i346/folderToUpload/bob.txt
+delete: s3://devopsteam99-i346/folderToUpload/script.sql
+delete: s3://devopsteam99-i346/fileToUpload.txt
+delete: s3://devopsteam99-i346/Airplane-Transponder.jpg
 ```
 
 ---
