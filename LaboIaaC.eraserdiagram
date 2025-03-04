@@ -1,26 +1,27 @@
 cloud-architecture-diagram
 
-// Define groups and nodes
-API gateway [icon: aws-api-gateway]
-Lambda [icon: aws-lambda]
-S3 [icon: aws-simple-storage-service]
+IGW [icon: aws-api-gateway]
+
 VPC Subnet {
-  Main Server {
-    Server [icon: aws-ec2]
-    Data [icon: aws-rds]
+  
+  Public {
+    SSH SRV [icon: aws-ec2]
+    NAT [icon: aws-rds]
   }
-  Queue [icon: aws-auto-scaling]
-  Compute Nodes {
-    Worker1 [icon: aws-ec2]
-    Worker2 [icon: aws-ec2]
-    Worker3 [icon: aws-ec2]
+  Route Table [icon: aws-database]
+
+  Private {
+    Win [icon:  aws-ec2]
+    Linux [icon: aws-ec2]
+    
   }
 }
-Analytics [icon: aws-redshift]
 
 // Define connections
-API gateway > Lambda > Server > Data
-Server > Queue
-Queue > Worker1, Worker2, Worker3
-S3 < Data
-Compute Nodes > Analytics
+IGW > SSH SRV > Route Table
+SSH SRV > Route Table > 
+IGW > NAT
+Route Table > NAT 
+Route Table > Win 
+Route Table > Linux 
+
