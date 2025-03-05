@@ -1,7 +1,7 @@
 # Laboratoire EC2
 
 ## List all VPCS
-
+[decrire le vpc]([https://git-scm.com/](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html?highlight=describe%20vpc))
 
   ```
 aws ec2 describe-vpcs --query "Vpcs[*].VpcId" --output table
