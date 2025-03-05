@@ -7,12 +7,26 @@
 aws ec2 describe-vpcs --query "Vpcs[*].VpcId" --output table
 
   ```
+```
+[OUTPUT]
+---------------------------
+|      DescribeVpcs       |
++-------------------------+
+|  vpc-0a22d771f16ae549d  |
++-------------------------+
+
+```
 
 ## IAM Policy
 
 Voici la "policy" qui vous a été attribuée:
 
+```bash
+
 ```
+
+```
+[OUTPUT]
 
 ```
 
