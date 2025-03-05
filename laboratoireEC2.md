@@ -17,17 +17,31 @@ aws ec2 describe-vpcs --query "Vpcs[*].VpcId" --output table
 
 ```
 
-## IAM Policy
+## List all Routes tables
 
 Voici la "policy" qui vous a été attribuée:
 
 ```bash
+aws ec2 describe-route-tables --query "RouteTables[*].RouteTableId" --output table
 
 ```
 
 ```
 [OUTPUT]
-
+---------------------------
+|   DescribeRouteTables   |
++-------------------------+
+|  rtb-0a9293aaf3c30b82c  |
+|  rtb-0acd33fa1f46d6e21  |
+|  rtb-069f0fe8e2ed1ff37  |
+|  rtb-00b3f747f972f123a  |
+|  rtb-01ebe5717e9104f85  |
+|  rtb-0e48c9ae2d1e0e4b9  |
+|  rtb-0f49e7901c1b634f0  |
+|  rtb-005b030aec917782b  |
+|  rtb-07bf97cd343c65b4c  |
+|  rtb-09eea99d8ac647a5f  |
++-------------------------+
 ```
 
 
