@@ -153,23 +153,3 @@ Voici la "policy" qui vous a été attribuée:
 
 ---
 
-## Questions d'analyse
-
-Consigne : répondre en utilisant des sources officielles et en vous appuyant dessus pour répondre.
-
-### Pourquoi est-il déconseillé de détruire un bucket S3 selon AWS ?
-
-* [Sources AWS]
-  https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/delete-bucket.html
-  [Votre réponse]
-  si nous détruisons un bucket S3 avec le nom d'une personne et que la personne le recréer nous ne pouvons plus acceder au contenu de ce bucket.
-
-### Quelle est la différence entre un Bucket S3 et Glacier ?
-
-* [Sources AWS]
-
-[Votre réponse]
-
-### Reprenez l'IAM "Policy" et expliquer ce que vous pouvez en déduire au niveau des droits qui vous sont alloués
-
-Consigne : Reprenez la "policy" et documenter chaque ligne
