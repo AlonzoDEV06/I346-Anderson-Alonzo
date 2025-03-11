@@ -1,27 +1,33 @@
 cloud-architecture-diagram
+Region{
 
-IGW [icon: aws-api-gateway]
+  IGW [icon: aws-api-gateway]
 
-VPC Subnet {
-  
-  Public {
-    SSH SRV [icon: aws-ec2]
-    NAT [icon: aws-rds]
-  }
-  Route Table [icon: aws-database]
-
-  Private {
-    Win [icon:  aws-ec2]
-    Linux [icon: aws-ec2]
+  VPC Subnet [icon: aws-vpc]{
     
-  }
-}
+    
+    Public {
+      SSH SRV [icon: aws-ec2]
+      NAT [icon: aws-rds]
+    }
+    
+    
+      Rte Tble [icon: aws-route-table]
+    
+    
+    Private {
+      Win [icon: windows]
+      Linux [icon: linux]
+    }
+    
+  }}
+
 
 // Define connections
-IGW > SSH SRV > Route Table
-SSH SRV > Route Table > 
-IGW > NAT
-Route Table > NAT 
-Route Table > Win 
-Route Table > Linux 
+IGW > SSH SRV
+NAT > IGW
+Rte Tble > NAT
+Rte Tble < SSH SRV
+Rte Tble <> Win
+Rte Tble <> Linux
 
