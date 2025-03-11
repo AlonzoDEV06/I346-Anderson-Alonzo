@@ -422,7 +422,7 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 
 ```
 
-* Créer un bucket (via un compte admin)
+* Affichage sous réseau
 
 ```bash
 
@@ -436,7 +436,16 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 
 ### Uploader un fichier
 
-* [La commande à réaliser pour effecuter l'action demandée]
+```bash
+
+```
+
+```
+[OUTPUT]
+
+```
+
+### Ajouter les routes dans les tables de routage
 
 ```bash
 
@@ -447,9 +456,7 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 
 ```
 
-### Uploader un répertoire
-
-* [La commande à réaliser pour effecuter l'action demandée]
+### Assoscier la table de routage
 
 ```bash
 
@@ -459,92 +466,3 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 [OUTPUT]
 
 ```
-
-### Lister le contenu d'un "repertoire"
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
-### Synchroniser un répertoire local de sa machine avec un bucket
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
-### Publier un fichier présent sur un bucket en générant un lien (url) temporaire
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
-### Supprimer un fichier
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
-### Vider un "repertoire"
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
-### Extraire uniquement les metadonnées d'un objet
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-### Vider le bucket
-
-* [La commande à réaliser pour effecuter l'action demandée]
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
----
-
