@@ -432,19 +432,6 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 [OUTPUT]
 
 ```
-
-
-### Uploader un fichier
-
-```bash
-
-```
-
-```
-[OUTPUT]
-
-```
-
 ### Ajouter les routes dans les tables de routage
 
 ```bash
