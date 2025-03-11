@@ -19,7 +19,7 @@ aws ec2 describe-vpcs --query "Vpcs[*].VpcId" --output table
 
 ## List all Routes tables
 
-Voici la "policy" qui vous a été attribuée:
+Voici toute les routes table:
 
 ```bash
 aws ec2 describe-route-tables --query "RouteTables[*].RouteTableId" --output table
@@ -45,7 +45,7 @@ aws ec2 describe-route-tables --query "RouteTables[*].RouteTableId" --output tab
 ```
 
 
-### Afficher sous réseau
+### Afficher les subnets
 
 ```bash
 $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output table
