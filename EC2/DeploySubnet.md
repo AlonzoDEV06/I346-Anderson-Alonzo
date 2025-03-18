@@ -274,6 +274,8 @@ aws ec2 create-security-group ^
 ## Add table in route table
 
 * [AWS CLI - create-route](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-subnets.html)
+
+Note : a default route table is automatically created with the subnet
 ```
 
 $ aws ec2 create-route --route-table-id rtb-01ebe5717e9104f85 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-059306bf876cf19f6 --profil devopsteam01 --regio eu-central-1
