@@ -168,7 +168,7 @@ aws ec2 create-subnet ^
     --region eu-central-1 ^
     --profile devopsteam99-i346 ^
     --output table ^
-    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=subnet-devopsteam99}]
+    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=subnet-devopsteam01}]
 ```
 
 * [AWS CLI - Create Route Table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-route-table.html)
@@ -181,7 +181,7 @@ aws ec2 create-route-table ^
     --region eu-central-1 ^
     --profile devopsteam01 ^
     --output table ^
-    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=rteTable-devopsteam99}]
+    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=rteTable-devopsteam01}]
 ```
 
 ```
