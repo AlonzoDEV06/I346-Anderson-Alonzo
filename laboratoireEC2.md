@@ -1,47 +1,63 @@
 # Laboratoire EC2
 
-## List all VPCS
-[decrire le vpc]([https://git-scm.com/](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html?highlight=describe%20vpc))
+# Deploy Subnet
 
-  ```
-aws ec2 describe-vpcs --query "Vpcs[*].VpcId" --output table
+## Find VPC id
 
-  ```
-```
-[OUTPUT]
----------------------------
-|      DescribeVpcs       |
-+-------------------------+
-|  vpc-0a22d771f16ae549d  |
-+-------------------------+
+* [AWS CLI - Describe VPCs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-vpcs.html)
 
 ```
-
-## List all Routes tables
-
-Voici toute les routes table:
-
-```bash
-aws ec2 describe-route-tables --query "RouteTables[*].RouteTableId" --output table
-
+aws ec2 describe-vpcs ^
+    --region eu-central-1 ^ 
+    --profile devopsteam01 ^
+    --output table
 ```
 
+OUTPUT
 ```
-[OUTPUT]
----------------------------
-|   DescribeRouteTables   |
-+-------------------------+
-|  rtb-0a9293aaf3c30b82c  |
-|  rtb-0acd33fa1f46d6e21  |
-|  rtb-069f0fe8e2ed1ff37  |
-|  rtb-00b3f747f972f123a  |
-|  rtb-01ebe5717e9104f85  |
-|  rtb-0e48c9ae2d1e0e4b9  |
-|  rtb-0f49e7901c1b634f0  |
-|  rtb-005b030aec917782b  |
-|  rtb-07bf97cd343c65b4c  |
-|  rtb-09eea99d8ac647a5f  |
-+-------------------------+
+-----------------------------------------------------------
+|                      DescribeVpcs                       |
++---------------------------------------------------------+
+||                         Vpcs                          ||
+|+----------------------+--------------------------------+|
+||  CidrBlock           |  10.0.0.0/16                   ||
+||  DhcpOptionsId       |  dopt-05854b009a610ac91        ||
+||  InstanceTenancy     |  default                       ||
+||  IsDefault           |  False                         ||
+||  OwnerId             |  709024702237                  ||
+||  State               |  available                     ||
+||  VpcId               |  vpc-0a22d771f16ae549d         ||
+|+----------------------+--------------------------------+|
+|||               BlockPublicAccessStates               |||
+||+------------------------------------------+----------+||
+|||  InternetGatewayBlockMode                |  off     |||
+||+------------------------------------------+----------+||
+|||               CidrBlockAssociationSet               |||
+||+----------------+------------------------------------+||
+|||  AssociationId |  vpc-cidr-assoc-0fad6e9a11ccae331  |||
+|||  CidrBlock     |  10.0.0.0/16                       |||
+||+----------------+------------------------------------+||
+||||                  CidrBlockState                   ||||
+|||+-------------------+-------------------------------+|||
+||||  State            |  associated                   ||||
+|||+-------------------+-------------------------------+|||
+|||                        Tags                         |||
+||+----------------------+------------------------------+||
+|||  Key                 |  Name                        |||
+|||  Value               |  vpc-i346                    |||
+||+----------------------+------------------------------+||
+```
+
+## Get a list of existing subnets
+
+* [AWS CLI - List subnets](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-subnets.html)
+
+```
+aws ec2 describe-subnets ^
+    --region eu-central-1 ^
+    --profile devopsteam01 ^
+    --output table ^
+    --filter Name=vpc-id,Values=vpc-i346
 ```
 
 
@@ -122,334 +138,119 @@ $ aws ec2 describe-subnets --profile devopsteam01 --region eu-central-1 --output
 |||  Key                       |  Name                                                                   |||
 |||  Value                     |  subnet-10.0.4.0/28                                                     |||
 ||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1c                                                          ||
-||  AvailabilityZoneId          |  euc1-az1                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.2.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-06924d9bed0d3f9fa  ||
-||  SubnetId                    |  subnet-06924d9bed0d3f9fa                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.2.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1a                                                          ||
-||  AvailabilityZoneId          |  euc1-az2                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.8.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-04000c6ac17aa87cd  ||
-||  SubnetId                    |  subnet-04000c6ac17aa87cd                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.8.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1c                                                          ||
-||  AvailabilityZoneId          |  euc1-az1                                                               ||
-||  AvailableIpAddressCount     |  10                                                                     ||
-||  CidrBlock                   |  10.0.0.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-007585998051b2c4a  ||
-||  SubnetId                    |  subnet-007585998051b2c4a                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------------+-------------------------------------------------------------------+||
-|||  Key                             |  Name                                                             |||
-|||  Value                           |  public-subnet                                                    |||
-||+----------------------------------+-------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1a                                                          ||
-||  AvailabilityZoneId          |  euc1-az2                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.6.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-0abac7e48b2a18a65  ||
-||  SubnetId                    |  subnet-0abac7e48b2a18a65                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.6.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1a                                                          ||
-||  AvailabilityZoneId          |  euc1-az2                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.1.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-0fc3126df64eea2b9  ||
-||  SubnetId                    |  subnet-0fc3126df64eea2b9                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.1.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1c                                                          ||
-||  AvailabilityZoneId          |  euc1-az1                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.5.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-092ced6aa04603165  ||
-||  SubnetId                    |  subnet-092ced6aa04603165                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.5.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1c                                                          ||
-||  AvailabilityZoneId          |  euc1-az1                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.3.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-0aaee76144e27a3dd  ||
-||  SubnetId                    |  subnet-0aaee76144e27a3dd                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.3.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1c                                                          ||
-||  AvailabilityZoneId          |  euc1-az1                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.9.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-0ab631f69a314e92d  ||
-||  SubnetId                    |  subnet-0ab631f69a314e92d                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.9.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-||                                                 Subnets                                                ||
-|+------------------------------+-------------------------------------------------------------------------+|
-||  AssignIpv6AddressOnCreation |  False                                                                  ||
-||  AvailabilityZone            |  eu-central-1a                                                          ||
-||  AvailabilityZoneId          |  euc1-az2                                                               ||
-||  AvailableIpAddressCount     |  11                                                                     ||
-||  CidrBlock                   |  10.0.7.0/28                                                            ||
-||  DefaultForAz                |  False                                                                  ||
-||  EnableDns64                 |  False                                                                  ||
-||  Ipv6Native                  |  False                                                                  ||
-||  MapCustomerOwnedIpOnLaunch  |  False                                                                  ||
-||  MapPublicIpOnLaunch         |  False                                                                  ||
-||  OwnerId                     |  709024702237                                                           ||
-||  State                       |  available                                                              ||
-||  SubnetArn                   |  arn:aws:ec2:eu-central-1:709024702237:subnet/subnet-01cfa9e1ea9fb3d90  ||
-||  SubnetId                    |  subnet-01cfa9e1ea9fb3d90                                               ||
-||  VpcId                       |  vpc-0a22d771f16ae549d                                                  ||
-|+------------------------------+-------------------------------------------------------------------------+|
-|||                                        BlockPublicAccessStates                                       |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||  InternetGatewayBlockMode                                                       |  off               |||
-||+---------------------------------------------------------------------------------+--------------------+||
-|||                                     PrivateDnsNameOptionsOnLaunch                                    |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||  EnableResourceNameDnsAAAARecord                                            |  False                 |||
-|||  EnableResourceNameDnsARecord                                               |  False                 |||
-|||  HostnameType                                                               |  ip-name               |||
-||+-----------------------------------------------------------------------------+------------------------+||
-|||                                                 Tags                                                 |||
-||+----------------------------+-------------------------------------------------------------------------+||
-|||  Key                       |  Name                                                                   |||
-|||  Value                     |  subnet-10.0.7.0/28                                                     |||
-||+----------------------------+-------------------------------------------------------------------------+||
-
 ```
 
-* Affichage sous réseau
+## Add tag to an exisiting resource
 
-```bash
+* [AWS CLI - Create tags](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-tags.html)
 
+```
+aws ec2 create-tags ^
+    --resources subnet-026ee5b4de5a53a01 ^
+    --tags Key=Name,Value=subnet-10.0.99.0/28 ^
+    --profile devopsteam01 ^
+    --region eu-central-1 ^
+    --output table
 ```
 
 ```
-[OUTPUT]
-
-```
-### Ajouter les routes dans les tables de routage
-
-```bash
-
+no input
 ```
 
-```
-[OUTPUT]
+## Create a private subnet
+
+* [AWS CLI - Create Subnet](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-subnet.html)
 
 ```
+aws ec2 create-subnet ^
+    --vpc-id vpc-0a22d771f16ae549d ^
+    --cidr-block 10.0.0.99/28 ^
+    --region eu-central-1 ^
+    --profile devopsteam99-i346 ^
+    --output table ^
+    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=subnet-devopsteam99}]
+```
 
-### Assoscier la table de routage
+* [AWS CLI - Create Route Table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-route-table.html)
 
-```bash
+Note : a default route table is automatically created with the subnet
 
+```
+aws ec2 create-route-table ^
+    --vpc-id vpc-0a22d771f16ae549d ^
+    --region eu-central-1 ^
+    --profile devopsteam01 ^
+    --output table ^
+    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=rteTable-devopsteam99}]
 ```
 
 ```
-[OUTPUT]
+-------------------------------------------------------------------------
+|                           CreateRouteTable                            |
++------------------+----------------------------------------------------+
+|  ClientToken     |  bb7d2fa8-75e5-4690-a47d-76dea6c0f42e              |
++------------------+----------------------------------------------------+
+||                             RouteTable                              ||
+|+---------------+--------------------------+--------------------------+|
+||    OwnerId    |      RouteTableId        |          VpcId           ||
+|+---------------+--------------------------+--------------------------+|
+||  709024702237 |  rtb-0acd33fa1f46d6e21   |  vpc-0a22d771f16ae549d   ||
+|+---------------+--------------------------+--------------------------+|
+|||                              Routes                               |||
+||+-----------------------+------------+--------------------+---------+||
+||| DestinationCidrBlock  | GatewayId  |      Origin        |  State  |||
+||+-----------------------+------------+--------------------+---------+||
+|||  10.0.0.0/16          |  local     |  CreateRouteTable  |  active |||
+||+-----------------------+------------+--------------------+---------+||
+|||                               Tags                                |||
+||+---------------+---------------------------------------------------+||
+|||      Key      |                       Value                       |||
+||+---------------+---------------------------------------------------+||
+|||  Name         |  rteTable-devopsteam99                            |||
+||+---------------+---------------------------------------------------+||
+```
 
+## Associate subnet and route table
+
+* [AWS CLI - Association route table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-subnet.html)
+
+```
+aws ec2 associate-route-table ^
+    --route-table-id rtb-0acd33fa1f46d6e21 ^
+    --subnet-id subnet-026ee5b4de5a53a01 ^
+    --region eu-central-1 ^
+    --profile devopsteam01 ^
+    --output table
+```
+
+```
+-------------------------------------------------
+|              AssociateRouteTable              |
++----------------+------------------------------+
+|  AssociationId |  rtbassoc-0edba46989de7531d  |
++----------------+------------------------------+
+||              AssociationState               ||
+|+----------------+----------------------------+|
+||  State         |  associated                ||
+|+----------------+----------------------------+|
+```
+
+* [AWS CLI - create route](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-route.html)
+
+```
+aws ec2 create-route ^
+    --route-table-id rtb-0acd33fa1f46d6e21 ^
+    --destination-cidr-block 0.0.0.0/0 ^
+    --instance-id i-09d3919ca6d27ab6b ^
+    --region eu-central-1 ^
+    --profile devopsteam01 ^
+    --output table
+```
+
+```
+--------------------
+|    CreateRoute   |
++---------+--------+
+|  Return |  True  |
++---------+--------+
 ```
