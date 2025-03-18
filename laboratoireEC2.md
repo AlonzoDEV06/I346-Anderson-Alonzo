@@ -216,8 +216,8 @@ aws ec2 create-route-table ^
 
 ```
 aws ec2 associate-route-table ^
-    --route-table-id rtb-0acd33fa1f46d6e21 ^
-    --subnet-id subnet-026ee5b4de5a53a01 ^
+    --route-table-id rtb-01ebe5717e9104f85 ^
+    --subnet-id subnet-0fc3126df64eea2b9 ^
     --region eu-central-1 ^
     --profile devopsteam01 ^
     --output table
@@ -239,7 +239,7 @@ aws ec2 associate-route-table ^
 
 ```
 aws ec2 create-route ^
-    --route-table-id rtb-0acd33fa1f46d6e21 ^
+    --route-table-id rtb-01ebe5717e9104f85 ^
     --destination-cidr-block 0.0.0.0/0 ^
     --instance-id i-09d3919ca6d27ab6b ^
     --region eu-central-1 ^
