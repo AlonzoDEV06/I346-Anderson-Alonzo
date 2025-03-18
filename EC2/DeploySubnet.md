@@ -271,6 +271,7 @@ aws ec2 create-security-group ^
     "SecurityGroupArn": "arn:aws:ec2:eu-central-1:709024702237:security-group/sg-054321d87f9af9ac3"
 }
 ```
+* [AWS CLI - create-route](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-subnets.html)
 ```
 https://docs.aws.amazon.com/cli/latest/reference/ec2/create-route.html
 Add table in route table
