@@ -1,4 +1,4 @@
-## Deploy Instance
+# Deploy Instance
 
 ## Create security group
 
