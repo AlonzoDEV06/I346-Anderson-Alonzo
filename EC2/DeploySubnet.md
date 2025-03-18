@@ -271,5 +271,12 @@ aws ec2 create-security-group ^
     "SecurityGroupArn": "arn:aws:ec2:eu-central-1:709024702237:security-group/sg-054321d87f9af9ac3"
 }
 ```
+```
+https://docs.aws.amazon.com/cli/latest/reference/ec2/create-route.html
+Add table in route table
+$ aws ec2 create-route --route-table-id rtb-01ebe5717e9104f85 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-059306bf876cf19f6 --profil devopsteam01 --regio eu-central-1
 
+(An error occurred (RouteAlreadyExists) when calling the CreateRoute operation: The route identified by 0.0.0.0/0 already exists.)
+
+```
 
