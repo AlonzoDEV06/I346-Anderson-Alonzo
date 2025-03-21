@@ -93,7 +93,7 @@ OUTPUT
 |+----------------------+------------------------------------------------------------------------------------+|
 ```
 
-# Rule RDP instance
+## Rule RDP instance
 ```
 aws ec2 authorize-security-group-ingress \
     --group-id sg-054321d87f9af9ac3 \
