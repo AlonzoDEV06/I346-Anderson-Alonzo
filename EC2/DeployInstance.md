@@ -92,3 +92,36 @@ OUTPUT
 ||  ToPort              |  22                                                                                ||
 |+----------------------+------------------------------------------------------------------------------------+|
 ```
+
+# Rule RDP instance
+```
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-054321d87f9af9ac3 \
+    --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=10.0.0.0/28,Description=RDP-FROM-DMZ}]" \
+    --region eu-central-1 \
+    --profile devopsteam01 \
+    --output table
+```
+OUTPUT
+```
+---------------------------------------------------------------------------------------------------------------
+|                                        AuthorizeSecurityGroupIngress                                        |
++------------------------------------------------------------+------------------------------------------------+
+|  Return                                                    |  True                                          |
++------------------------------------------------------------+------------------------------------------------+
+||                                            SecurityGroupRules                                             ||
+|+----------------------+------------------------------------------------------------------------------------+|
+||  CidrIpv4            |  10.0.0.0/28                                                                       ||
+||  Description         |  RDP-FROM-DMZ                                                                      ||
+||  FromPort            |  3389                                                                              ||
+||  GroupId             |  sg-054321d87f9af9ac3                                                              ||
+||  GroupOwnerId        |  709024702237                                                                      ||
+||  IpProtocol          |  tcp                                                                               ||
+||  IsEgress            |  False                                                                             ||
+||  SecurityGroupRuleArn|  arn:aws:ec2:eu-central-1:709024702237:security-group-rule/sgr-09e88cea6ab3528c5   ||
+||  SecurityGroupRuleId |  sgr-09e88cea6ab3528c5                                                             ||
+||  ToPort              |  3389                                                                              ||
+|+----------------------+------------------------------------------------------------------------------------+|
+
+```
+
