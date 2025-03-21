@@ -1,4 +1,22 @@
 # Deploy Instance
+## Create Key Pair
+
+* [AWS CLI - Create Key Pair](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-key-pair.html)
+
+```
+aws ec2 create-key-pair ^
+    --key-name KEY-I346-SUB-DEVOPSTEAM99 ^
+    --key-type rsa ^
+    --key-format pem ^
+    --region eu-central-1 ^
+    --profile devopsteam99-i346 ^
+    --output text > KEY-I346-SUB-DEVOPSTEAM99.pem
+```
+
+OUTPUT
+```
+a file "<name>.pem" has been created
+```
 
 ## Create security group
 
@@ -19,6 +37,7 @@ OUTPUT
 }
 
 ```
+
 
 ## Authorize Security Group - Ingress
 
