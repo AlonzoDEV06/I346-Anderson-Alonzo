@@ -58,7 +58,17 @@ OUTPUT
 
 * [AWS CLI - Run instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html)
 ```
-aws ec2 run-instances --image-id ami-0584590e5f0e97daa --instance-type t2.micro --key-name KEY-I346-SUB-DEVOPSTEAM01 --subnet-id subnet-0fc3126df64eea2b9 --security-group-ids sg-054321d87f9af9ac3 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=EC2-DEVOPSTEAM01-SUBNET}] --private-ip-address 10.0.01.11 --region eu-central-1 --profile devopsteam01 --output table
+aws ec2 run-instances ^
+--image-id ami-0584590e5f0e97daa ^
+ --instance-type t2.micro ^
+--key-name KEY-I346-SUB-DEVOPSTEAM01 ^
+ --subnet-id subnet-0fc3126df64eea2b9 ^
+ --security-group-ids sg-054321d87f9af9ac3 ^
+ --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=EC2-DEVOPSTEAM01-SUBNET}] ^
+ --private-ip-address 10.0.01.11 ^
+ --region eu-central-1 ^
+--profile devopsteam01 ^
+ --output table
 ```
 
 OUTPUT
