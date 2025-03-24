@@ -129,13 +129,13 @@ OUTPUT
 ## Start/Stop/Terminate Instance
 ```
 Start
-aws ec2 start-instances --instance-ids i-0547dda71a4e91ac4
+aws ec2 start-instances --instance-ids i-0547dda71a4e91ac4 --profile devopsteam01
 ------------------------------------------------------------------
 Stop 
-aws ec2 stop-instances --instance-ids i-0547dda71a4e91ac4
+aws ec2 stop-instances --instance-ids i-0547dda71a4e91ac4 --profile devopsteam01
 ------------------------------------------------------------------
 Terminate
-aws ec2 terminate-instances --instance-ids i-0547dda71a4e91ac4
+aws ec2 terminate-instances --instance-ids i-0547dda71a4e91ac4 --profile devopsteam01
 ```
 
 
