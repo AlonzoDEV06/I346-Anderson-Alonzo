@@ -5,12 +5,12 @@
 
 ```
 aws ec2 create-key-pair ^
-    --key-name KEY-I346-SUB-DEVOPSTEAM99 ^
+    --key-name KEY-I346-SUB-DEVOPSTEAM01 ^
     --key-type rsa ^
     --key-format pem ^
     --region eu-central-1 ^
-    --profile devopsteam99-i346 ^
-    --output text > KEY-I346-SUB-DEVOPSTEAM99.pem
+    --profile devopsteam01 ^
+    --output text > KEY-I346-SUB-DEVOPSTEAM01.pem
 ```
 
 OUTPUT
