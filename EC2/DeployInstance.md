@@ -126,4 +126,79 @@ OUTPUT
 |+----------------------+------------------------------------------------------------------------------------+|
 
 ```
+## Start/Stop/Terminate Instance
+```
+Start
+aws ec2 start-instances --instance-ids i-0547dda71a4e91ac4
+```
+```
+Stop 
+aws ec2 stop-instances --instance-ids i-0547dda71a4e91ac4
+```
+```
+Terminate
+aws ec2 terminate-instances --instance-ids i-0547dda71a4e91ac4
+```
+
+
+OUTPUT
+```
+Start
+{
+    "StartingInstances": [
+        {
+            "InstanceId": "i-0547dda71a4e91ac4",
+            "PreviousState": {
+                "Code": 80,
+                "Name": "stopped"
+            },
+            "CurrentState": {
+                "Code": 0,
+                "Name": "pending"
+            }
+        }
+    ]
+}
+```
+```
+Stop
+{
+    "StoppingInstances": [
+        {
+            "InstanceId": "i-0547dda71a4e91ac4",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "CurrentState": {
+                "Code": 64,
+                "Name": "stopping"
+            }
+        }
+    ]
+}
+```
+```
+Terminate
+{
+    "TerminatingInstances": [
+        {
+            "InstanceId": "i-0547dda71a4e91ac4",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            }
+        }
+    ]
+}
+```
+
+
+
+
+
 
